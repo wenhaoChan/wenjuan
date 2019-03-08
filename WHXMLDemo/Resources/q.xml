@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qnaire name="village_survey" fullName="village_survey" title="标题">
+	<radioList name="radioList" fullName="village_survey.radioList">
+		<color>#ffffff</color>
+		<fontSize>20</fontSize>
+		<options>
+			<option>
+				<num>1</num>
+				<txt>选项一</txt>
+				<img>1.jpg</img>
+				<desc>描述</desc>
+				<isChecked>false</isChecked>
+				<extAnswer />
+			</option>
+			<option>
+				<num>2</num>
+				<txt>选项二</txt>
+				<img>1.jpg</img>
+				<desc>描述</desc>
+				<isChecked>false</isChecked>
+				<extAnswer />
+			</option>
+			<option>
+				<num>3</num>
+				<txt>其他请说明</txt>
+				<img>1.jpg</img>
+				<desc>描述</desc>
+				<isChecked>false</isChecked>
+				<extAnswer>
+					<require>true</require>
+					<placeholder>请输入</placeholder>
+				</extAnswer>
+			</option>
+		</options>
+	</radioList>
+	
+	<checkboxList name="checkboxList" fullName="village_survey.checkboxList">
+		<color>#ffffff</color>
+		<fontSize>20</fontSize>
+		<options>
+			<option>
+				<num>1</num>
+				<txt>选项一</txt>
+				<img>1.jpg</img>
+				<desc>描述</desc>
+				<isChecked>false</isChecked>					
+				<group/>
+			</option>
+			<option>
+				<num>2</num>
+				<txt>选项二</txt>
+				<img>1.jpg</img>
+				<desc>描述</desc>
+				<isChecked>false</isChecked>
+				<extAnswer />
+				<group/>
+			</option>
+			<option>
+				<num>3</num>
+				<txt>选项三</txt>
+				<img>1.jpg</img>
+				<desc>描述</desc>					
+				<isChecked>false</isChecked>
+				<extAnswer />
+				<group/>
+				<extAnswer>
+					<isExt>true</isExt>
+					<placeholder>请输入</placeholder>
+				</extAnswer>
+			</option>
+			<option>
+				<num>4</num>
+				<txt>其他请说明</txt>
+				<img>1.jpg</img>
+				<desc>描述</desc>					
+				<isChecked>false</isChecked>
+				<extAnswer />
+				<group/>
+				<extAnswer>
+					<isExt>true</isExt>
+					<placeholder>请输入</placeholder>
+				</extAnswer>
+			</option>
+		</options>
+	</checkboxList>
+	
+	<input name="input" fullName="village_survey.input">
+		<require>true</require>
+		<length>15</length>
+		<min>2</min>
+		<max>15</max>
+		<placeholder>姓名</placeholder>
+		<type>string</type>
+		<value />
+		<regexp />
+		<minVal />
+		<maxVal />			
+	</input>
+	
+	<matrixSingleItem name="matrixSingleItem" fullName="village_survey.matrixSingleItem">
+		<radioList>
+			<option>
+				<num>1</num>
+				<txt>很不满意</txt>
+				<val>1</val>
+				<isSelected>false</isSelected>
+			</option>
+			<option>
+				<num>2</num>
+				<txt>不满意</txt>
+				<val>2</val>
+				<isSelected>false</isSelected>
+			</option>
+			<option>
+				<num>3</num>
+				<txt>一般</txt>
+				<val>3</val>
+				<isSelected>false</isSelected>
+			</option>
+			<option>
+				<num>4</num>
+				<txt>满意</txt>
+				<val>4</val>
+				<isSelected>false</isSelected>
+			</option>
+			<option>
+				<num>5</num>
+				<txt>很满意</txt>
+				<val>5</val>
+				<isSelected>false</isSelected>
+			</option>
+		</radioList>
+		<items>
+			<item>外观</item>
+			<item>性能</item>
+		</items>
+	</matrixSingleItem>
+	
+	<!--单选题-->
+	<singleChoice name="singleChoice1" fullName="village_survey.singleChoice1">
+		<title>
+			<operator>none</operator>
+			<operatorIdentifier>none</operatorIdentifier>
+			<value>【A100】单选题一</value>
+			<expressions />
+		</title>
+		<subTitle>
+			<operator>none</operator>
+			<operatorIdentifier>none</operatorIdentifier>
+			<value>副标题</value>
+			<expressions />
+		</subTitle>
+		<remark>
+			<operator>none</operator>
+			<operatorIdentifier>none</operatorIdentifier>
+			<value>备注信息</value>
+			<expressions />
+		</remark>
+		<answers>
+			<radioList name="radioList" fullName="village_survey.radioList" />
+			<otherwiseAnswers>
+				<otherwiseAnswer>dk</otherwiseAnswer>
+				<otherwiseAnswer>rf</otherwiseAnswer>
+				<otherwiseAnswer>na</otherwiseAnswer>
+			</otherwiseAnswers>				
+		</answers>
+	</singleChoice>
+	
+	<!--多选题-->
+	<multiChoice name="multiChoice" fullName="village_survey.multiChoice">
+		<title>
+			<operator>none</operator>
+			<operatorIdentifier>none</operatorIdentifier>
+			<value>【A102】多项选择</value>
+			<expressions />
+		</title>
+		<subTitle />
+		<remark />
+		<answers>
+			<checkboxList name="checkboxList" fullName="village_survey.checkboxList" />
+			<otherwiseAnswers>
+				<otherwiseAnswer>dk</otherwiseAnswer>
+				<otherwiseAnswer>rf</otherwiseAnswer>
+				<otherwiseAnswer>na</otherwiseAnswer>
+			</otherwiseAnswers>				
+		</answers>
+	</multiChoice>
+	
+	<!--单项填空-->
+	<singleCompletion name="singleCompletion" fullName="village_survey.singleCompletion">
+		<title>
+			<operator>none</operator>
+			<operatorIdentifier>none</operatorIdentifier>
+			<value>【A113】单项填空</value>
+			<expressions />
+		</title>
+		<subTitle />
+		<remark />
+		<answers>
+			<input name="input" fullName="village_survey.input" />
+			<otherwiseAnswers>
+				<otherwiseAnswer>dk</otherwiseAnswer>
+				<otherwiseAnswer>rf</otherwiseAnswer>
+				<otherwiseAnswer>na</otherwiseAnswer>
+			</otherwiseAnswers>				
+		</answers>
+	</singleCompletion>
+
+	<!--矩阵单选-->
+	<matrixSingle name="matrixSingle" fullName="village_survey.matrixSingle">
+		<title>
+			<operator>none</operator>
+			<operatorIdentifier>none</operatorIdentifier>
+			<value>【A107】矩阵单选</value>
+			<expressions />
+		</title>
+		<subTitle />
+		<remark />
+		<answers>
+			<matrixSingleItem name="matrixSingleItem" fullName="village_survey.matrixSingleItem" />
+			<otherwiseAnswers>
+				<otherwiseAnswer>dk</otherwiseAnswer>
+				<otherwiseAnswer>rf</otherwiseAnswer>
+				<otherwiseAnswer>na</otherwiseAnswer>
+			</otherwiseAnswers>				
+		</answers>
+	</matrixSingle>
+</qnaire>
