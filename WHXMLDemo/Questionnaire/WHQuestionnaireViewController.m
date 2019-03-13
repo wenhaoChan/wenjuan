@@ -10,15 +10,11 @@
 
 #import <Ono/Ono.h>
 
-#import <DLRadioButton/DLRadioButton.h>
-
 #import <RadioButton/RadioButton.h>
-
-#import "WHRadioButton.h"
 
 #import <YYCategories/YYCategories.h>
 
-@interface WHQuestionnaireViewController ()<MHRadioButtonDelegate>
+@interface WHQuestionnaireViewController ()
 
 @property (nonatomic, strong) ONOXMLDocument* document;
 
@@ -34,7 +30,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         [self loadXmlFile];
-//        [self initializeForm];
     }
     return self;
 }
@@ -45,7 +40,6 @@
     self = [super initWithCoder:aDecoder];
     if (self){
         [self loadXmlFile];
-//        [self initializeForm];
         
     }
     return self;
@@ -67,6 +61,8 @@
 
 #pragma mark - private methods
 
+#pragma mark 加载本地 xml 文件
+
 - (void)loadXmlFile
 {
     NSString* xmlFilePath = [[NSBundle mainBundle] pathForResource:@"q" ofType:@"xml"];
@@ -74,6 +70,8 @@
     NSData* data = [NSData dataWithContentsOfFile:xmlFilePath];
     
     NSError* error;
+    
+    // 解析 xml 获取节点对象
     
     _document = [ONOXMLDocument XMLDocumentWithData:data error:&error];
     
@@ -83,14 +81,24 @@
         NSLog(@"[Error] %@", error);
     }
     
-    [_document.rootElement.children enumerateObjectsUsingBlock:^(ONOXMLElement * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+//    [_document.rootElement.children enumerateObjectsUsingBlock:^(ONOXMLElement * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    
 //        NSLog(@"%@", obj.attributes);
-    }];
+//    }];
     
 }
 
 
+/**
+ 第一种方案
+ 1. 通过分析节点结构 提前定义好 如：radio单选按钮 checkbox多选框 输入框 等控件
+ 2. 获取每个节点 分拆属性 创建对应的UI控件
+ 3. 加到视图中去
+ 
+ 第二种 （未实现）
+ 根据节点 构建表单（非web表单，是OS风格）
+ 可以结合 XLForm 这个s第三方
+ */
 - (void)setupSubviews
 {
     
@@ -127,12 +135,12 @@
     [radios enumerateObjectsUsingBlock:^(NSMutableDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 
         RadioButton* btn = [[RadioButton alloc] initWithFrame:btnRect];
-        btnRect.origin.y += 20;
+        btnRect.origin.y += 30;
         
         if  (![obj[@"extAnswer"] isKindOfClass:[NSString class]]) {
             ;
             UITextField * tf = [[UITextField alloc] initWithFrame:CGRectMake(btnRect.size.width * .5, btnRect.origin.y + 2.5, btnRect.size.width * .5, 25)];
-            tf.font = [UIFont boldSystemFontOfSize:font.integerValue * .5];
+            tf.font = [UIFont boldSystemFontOfSize:font.integerValue];
             tf.textColor = [UIColor colorWithHexString:textColor];
             tf.placeholder = obj[@"extAnswer"][@"placeholder"];
             [self.view addSubview:tf];
@@ -144,7 +152,7 @@
         NSString* title = [NSString stringWithFormat:@"%@ %@ %@ %@", obj[@"num"], obj[@"txt"], obj[@"img"], obj[@"desc"]];
         [btn setTitle:title forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor colorWithHexString:textColor] forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont boldSystemFontOfSize:font.integerValue * .5];
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:font.integerValue];
         [btn setImage:[UIImage imageNamed:@"normal"] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -192,12 +200,12 @@
         
         UIButton* btn = [[UIButton alloc] init];
         
-        btnRect.origin.y += 20;
+        btnRect.origin.y += 30;
         
         if  (![obj[@"extAnswer"] isKindOfClass:[NSString class]]) {
             UITextField * tf = [[UITextField alloc] initWithFrame:CGRectMake(btnRect.size.width / 2, btnRect.origin.y + 2.5, btnRect.size.width / 2, 25)];
             
-            tf.font = [UIFont boldSystemFontOfSize:font.integerValue * .5];
+            tf.font = [UIFont boldSystemFontOfSize:font.integerValue];
             tf.textColor = [UIColor colorWithHexString:textColor];
             tf.placeholder = obj[@"extAnswer"][@"placeholder"];
             [self.view addSubview:tf];
@@ -209,7 +217,7 @@
         NSString* title = [NSString stringWithFormat:@"%@ %@ %@ %@", obj[@"num"], obj[@"txt"], obj[@"img"], obj[@"desc"]];
         [btn setTitle:title forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor colorWithHexString:textColor] forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont boldSystemFontOfSize:font.integerValue * .5];
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:font.integerValue];
         [btn setImage:[UIImage imageNamed:@"normal"] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -229,7 +237,7 @@
     btnRect.origin.y += 40;
     UITextField* nameTF = [[UITextField alloc] initWithFrame:CGRectMake(30, btnRect.origin.y, btnRect.size.width - 60, 20)];
     nameTF.placeholder = nameDic[@"placeholder"];
-    nameTF.font = [UIFont boldSystemFontOfSize:font.integerValue * .5];
+    nameTF.font = [UIFont boldSystemFontOfSize:font.integerValue];
     nameTF.textColor = [UIColor colorWithHexString:textColor];
     [self.view addSubview:nameTF];
     
@@ -248,122 +256,18 @@
     sender.selected = !sender.isSelected;
 }
 
-//- (void)initializeForm
-//{
-//    XLFormDescriptor * form; //form，一个表单只有一个
-//    XLFormSectionDescriptor * section; //section，一个表单可能有多个
-//    XLFormRowDescriptor * row; //row，每个section可能有多个row
-//
-//    // Form
-//    form = [XLFormDescriptor formDescriptor];
-//
-//
-//    for (<#type *object#> in <#collection#>) {
-//        <#statements#>
-//    }
-//
-//
-//    // First section
-//    section = [XLFormSectionDescriptor formSection];
-//    section.title = @"用户";
-//    [form addFormSection:section];
-//    // 普通文本
-//    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"username" rowType:XLFormRowDescriptorTypeText];
-//    // 设置placeholder
-//    [row.cellConfig setObject:@"用户名" forKey:@"textField.placeholder"];
-//    // 设置文本颜色
-//    [row.cellConfig setObject:[UIColor redColor] forKey:@"textField.textColor"];
-//    [section addFormRow:row];
-//    // 密码
-//    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"password" rowType:XLFormRowDescriptorTypePassword];
-//    // 设置placeholder的颜色
-//    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"密码" attributes:
-//                                      @{NSForegroundColorAttributeName:[UIColor greenColor],
-//                                        }];
-//    [row.cellConfig setObject:attrString forKey:@"textField.attributedPlaceholder"];
-//    [section addFormRow:row];
-//
-//
-//
-//    // Second Section
-//    section = [XLFormSectionDescriptor formSection];
-//    section.title = @"日期";
-//    [form addFormSection:section];
-//    // 日期选择器
-//    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"birthday" rowType:XLFormRowDescriptorTypeDate title:@"出生日期"];
-//    row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
-//    [section addFormRow:row];
-//
-//
-//
-//    // Third Section
-//    section = [XLFormSectionDescriptor formSection];
-//    section.title = @"头像";
-//    [form addFormSection:section];
-//    // 图片选择
-//    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"userpic" rowType:XLFormRowDescriptorTypeImage];
-//    [section addFormRow:row];
-//
-//
-//
-//    // Fourth Section
-//    section = [XLFormSectionDescriptor formSection];
-//    section.title = @"选择器";
-//    [form addFormSection:section];
-//    // 选择器
-//    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"sex" rowType:XLFormRowDescriptorTypeSelectorPush];
-//    row.noValueDisplayText = @"暂无";
-//    row.selectorTitle = @"性别选择";
-//    row.selectorOptions = @[@"男",@"女",@"其他"];
-//    row.title = @"性别";
-//    [row.cellConfigForSelector setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
-//    [row.cellConfigForSelector setObject:[UIColor greenColor] forKey:@"detailTextLabel.textColor"];
-//    [section addFormRow:row];
-//
-//
-//
-//    // Fifth Section
-//    section = [XLFormSectionDescriptor formSection];
-//    section.title = @"加固";
-//    [form addFormSection:section];
-//    // 开关
-//    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"enforce" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"加固"];
-//    [section addFormRow:row];
-//
-//
-//    // Sixth Section
-//    section = [XLFormSectionDescriptor formSection];
-//    [form addFormSection:section];
-//    // 按钮
-//    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"conform" rowType:XLFormRowDescriptorTypeButton];
-//    row.title = @"提交";
-//    [section addFormRow:row];
-//
-//
-//    self.form = form;
-//}
 
 
 #pragma mark - public methods
 
 
-
 #pragma mark - Event Response methods
-
-
 
 
 #pragma mark - Custom Delegate
 
 
-- (void)radioButtonSelectedAtIndex:(NSUInteger)index inGroup:(NSString *)groupId
-{
-    
-}
-
-
 #pragma mark - getter
-
 
 
 #pragma mark - setter

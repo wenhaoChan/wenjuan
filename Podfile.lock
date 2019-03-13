@@ -1,34 +1,26 @@
 PODS:
-  - DLRadioButton (1.4.12)
   - Ono (2.1.1)
   - RadioButton (1.0)
-  - XLForm (4.0.0)
   - YYCategories (1.0.4):
     - YYCategories/no-arc (= 1.0.4)
   - YYCategories/no-arc (1.0.4)
 
 DEPENDENCIES:
-  - DLRadioButton
   - Ono
   - RadioButton
-  - XLForm
   - YYCategories (~> 1.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - DLRadioButton
     - Ono
     - RadioButton
-    - XLForm
     - YYCategories
 
 SPEC CHECKSUMS:
-  DLRadioButton: d7c4e225ed0e8013cef7be61455230c7557ad7c1
   Ono: 13c25831a4a66b30df93bd1fa57cf70f13c62699
   RadioButton: 7ef053baf6ff0e7f9e777016c28e9ba4e330edba
-  XLForm: 04110197c12187dd28a6c7295d3d8b95f4fdb4de
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
 
-PODFILE CHECKSUM: e067c4b3025d5dc82d7747a4c09489e6b7f65d89
+PODFILE CHECKSUM: fff245cbd6412a256e5ce7e2d5edc64985be02cb
 
 COCOAPODS: 1.6.0.beta.2

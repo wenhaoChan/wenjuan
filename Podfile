@@ -9,12 +9,10 @@ target 'WHXMLDemo' do
 
   # Pods for WHXMLDemo
   pod 'Ono'
-  pod 'XLForm'
-  
+#  pod 'XLForm'
+
   pod 'RadioButton'
-  
-  pod 'DLRadioButton'
-  
+
   pod 'YYCategories'                    ,               '~> 1.0.0'
   
   target 'WHXMLDemoTests' do

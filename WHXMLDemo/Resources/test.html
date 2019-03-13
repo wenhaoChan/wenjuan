@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title></title>
+        <script language="javascript" type="text/javascript">
+            
+            var str="";
+            
+            function apendHtml(html)
+            {
+                //alert(html);
+                
+                str += html + "\t";
+                
+                var element = document.getElementById("content");
+                
+                element.innerHTML = str;
+                
+                //var output = temp.innerText || temp.textContent;
+                
+                //var para=document.createElement("p");
+                //var node = document.createTextNode(html);
+                //para.appendChild(node);
+                
+                // element.innerHTML = html;
+                
+                //element.appendChild(para);
+            }
+        
+            function getTestXmlValue(path){
+                alert(path);
+                var xmlDoc= new ActiveXObject("Microsoft.XMLDOM");
+                xmlDoc.async = false;
+                xmlDoc.load(path);
+                var nodes = xmlDoc.documentElement.childNodes;
+                alert(nodes.length);
+                // alert(nodes.childNodes[0].text+","+nodes.childNodes[1].text);
+                for(var i=0; i<nodes.length; i++){
+                    var node = nodes[i];
+                    alert(node.childNodes[0].text+","+node.childNodes[1].text);
+                }
+            }
+        
+    
+        
+        function loadXmlString(xml) {
+            alert(xml);
+            //alert(hex2str(xml));
+          //  getTestXmlValue(xml);
+        }
+        
+        </script>
+
+    </head>
+    <body onload="">
+        <div id="content" style="color: #333333; font-size: 14px"></div>
+    </body>
+        
+</html>
